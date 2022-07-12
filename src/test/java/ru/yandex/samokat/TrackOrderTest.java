@@ -1,7 +1,5 @@
 package ru.yandex.samokat;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,9 +12,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import ru.yandex.samokat.pages.HomePageSamokat;
-import ru.yandex.samokat.pages.TrackPage;
+import ru.yandex.samokat.pages.TrackOrderPage;
 
-public class TrackTest {
+public class TrackOrderTest {
     private WebDriver driver;
     private JavascriptExecutor jse;
     private final String url = "https://qa-scooter.praktikum-services.ru/";
@@ -27,6 +25,7 @@ public class TrackTest {
         jse = (JavascriptExecutor)driver;
     }
 
+
     @Test
     public void wrongTrackShowNotFoundTest(){
         driver.get(url);
@@ -36,7 +35,7 @@ public class TrackTest {
         objHomePage.setOrderNumber("12345");
         objHomePage.pushGo();
 
-        TrackPage objTrackPage = new TrackPage(driver, jse);
+        TrackOrderPage objTrackPage = new TrackOrderPage(driver, jse);
         boolean isDisplayedNotFound = objTrackPage.isDisplayedNotFound();
         assertTrue("Ожидается вывод окна Такого заказа нет" , isDisplayedNotFound);
     }

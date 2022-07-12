@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-public class HomePageSamokat {
+public class HomePageSamokat extends DriveredPage{
         // URL страницы https://qa-scooter.praktikum-services.ru/
         private final String url = "https://qa-scooter.praktikum-services.ru/";
         // Logo скутер
@@ -41,24 +41,12 @@ public class HomePageSamokat {
         private final By FAQResponses = By.cssSelector("div[data-accordion-component=AccordionItemPanel]");
         // Развернутые ответы FAQ аккордеона
         private final By FAQResponsesOpened = By.xpath(".//div[@class='accordion__panel' and not(@hidden)]");
-        private WebDriver driver;
-        private JavascriptExecutor jse;
-
-
 
         //Конструктор с параметром webdriver
         public HomePageSamokat(WebDriver driver){
-                this.driver = driver;
+                super(driver);
         }
-        public HomePageSamokat(WebDriver driver, JavascriptExecutor jse){
-                this.driver = driver;
-                this.jse = jse;
-        }
-
-        private void scrollAndClick(WebElement element){
-                jse.executeScript("arguments[0].scrollIntoView()", element);
-                element.click();
-        }
+        public HomePageSamokat(WebDriver driver, JavascriptExecutor jse){ super(driver, jse);}
 
         // Принять Куки
         public void acceptCookies(){
@@ -71,6 +59,7 @@ public class HomePageSamokat {
                 List<WebElement> elements = driver.findElements(FAQuestions);
                 return elements.size();
         }
+
         // получить лист FAQ accordion Buttons
         public List<WebElement> getFAQuestionButtons(){
                 List<WebElement> elements = driver.findElements(FAQuestions);

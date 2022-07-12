@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
-public class AboutRentOrderPage {
+public class AboutRentOrderPage extends DriveredPage {
     // Когда привезти $x(".//input[contains(@placeholder, 'Когда')]")
     private final By selectorWhenField = By.xpath(".//input[contains(@placeholder, 'Когда')]");
     // День сегодня
@@ -25,23 +25,10 @@ public class AboutRentOrderPage {
     private final By selectorOrderButton = By.xpath(".//div[contains(@class, 'Order_Buttons')]//button[text()='Заказать']");
 
 
-    private WebDriver driver;
-    private JavascriptExecutor jse;
-
     //Конструктор с параметром webdriver
-    public AboutRentOrderPage(WebDriver driver){
-        this.driver = driver;
-    }
+    public AboutRentOrderPage(WebDriver driver) { super(driver);}
 
-    public AboutRentOrderPage(WebDriver driver, JavascriptExecutor jse){
-        this.driver = driver;
-        this.jse = jse;
-    }
-
-    private void scrollAndClick(WebElement element){
-        jse.executeScript("arguments[0].scrollIntoView()", element);
-        element.click();
-    }
+    public AboutRentOrderPage(WebDriver driver, JavascriptExecutor jse){ super(driver,jse); }
 
     public  void setDate(int date){
         driver.findElement(selectorWhenField).click();
