@@ -90,8 +90,12 @@ public class AboutRentOrderPage {
         driver.findElements(selectorRentPeriod).get(choice).click();
     }
 
-    public void setBlackColor(){
-        driver.findElement(selectorBlackColor).click();
+    public void setBlackColor(boolean isBlack){
+        if (isBlack) driver.findElement(selectorBlackColor).click();
+    }
+
+    public void setGreyColor(boolean isGray){
+        if (isGray) driver.findElement(selectorGreyColor).click();
     }
 
     public void setComment(String comment){

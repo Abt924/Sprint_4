@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import ru.yandex.samokat.pages.HomePageSamokat;
 
+
 public class FollowLogoTest {
 
     private WebDriver driver;

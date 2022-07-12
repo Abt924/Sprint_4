@@ -3,10 +3,10 @@ package ru.yandex.samokat;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import static org.junit.Assert.assertTrue;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,11 +18,48 @@ import ru.yandex.samokat.pages.ConfirmationOrderPage;
 import ru.yandex.samokat.pages.OrderApprovedPage;
 
 
+@RunWith(Parameterized.class)
 public class OrderSuccessFLowTest {
 
     private WebDriver driver;
     private JavascriptExecutor jse;
     private final String url = "https://qa-scooter.praktikum-services.ru/";
+
+    private final String name;
+    private final String surname;
+    private final String address;
+    private final String metro;
+    private final String phone;
+    private final int date;
+    private final int period;
+    private final boolean isBlack;
+    private final boolean isGray;
+    private final String comments;
+
+    public OrderSuccessFLowTest(String name, String surname, String address, String metro, String phone, 
+                                int date, int period, boolean isBlack, boolean isGray, String comments){
+        this.name= name;
+        this.surname= surname;
+        this.address= address;
+        this.metro= metro;
+        this.phone= phone;
+        this.date= date;
+        this.period= period;
+        this.isBlack= isBlack;
+        this.isGray= isGray;
+        this.comments= comments;
+    }
+
+    @Parameterized.Parameters
+    public static Object [][] getOrderData(){
+        return new Object[][]{
+                {"Сидор", "Васечкин", "Хорошовское шоссе 17", "Беговая", "+74952128506",
+        18, 6, true, false, "No comments"},
+                {"Петр", "Баширов", "Льва Толстого д.6", "Парк культуры", "84952128506",
+                        2, 1, true, true, "без комментариев"},
+        };
+    }
+
 
     @Before
     public void setUp(){
@@ -38,19 +75,20 @@ public class OrderSuccessFLowTest {
         objHomePage.pushOrderOnPage();
 
         ForWhomOrderPage objForWhom = new ForWhomOrderPage(driver, jse);
-        objForWhom.setName("Василий");
-        objForWhom.setSurname("Петров");
-        objForWhom.setAddress("Фестивальная д.1 кв.99");
-        objForWhom.setPhone("+79852128506");
-        objForWhom.setMetro("Сокольники");
+        objForWhom.setName(name);
+        objForWhom.setSurname(surname);
+        objForWhom.setAddress(address);
+        objForWhom.setPhone(phone);
+        objForWhom.setMetro(metro);
         objForWhom.pushNext();
 
         AboutRentOrderPage objAboutRent = new AboutRentOrderPage(driver, jse);
-        objAboutRent.setNextDay();
-        objAboutRent.setDate(7);
-        objAboutRent.setRentPeriod(4);
-        objAboutRent.setBlackColor();
-        objAboutRent.setComment("Без комментариев");
+        //objAboutRent.setNextDay();
+        objAboutRent.setDate(date);
+        objAboutRent.setRentPeriod(period);
+        objAboutRent.setBlackColor(isBlack);
+        objAboutRent.setGreyColor(isGray);
+        objAboutRent.setComment(comments);
         objAboutRent.pushOrder();
 
         ConfirmationOrderPage objConfirmationPage = new ConfirmationOrderPage(driver, jse);
@@ -58,7 +96,7 @@ public class OrderSuccessFLowTest {
         objConfirmationPage.pushYes();
 
         OrderApprovedPage objAprooved = new OrderApprovedPage(driver,jse);
-        assertTrue("Ожидается появление окна Заказ оформлен...", objAprooved.isUp());
+        assertTrue("НЕТ окна \"Заказ оформлен\" после подтверждения заказа.", objAprooved.isUp());
 
     }
 
