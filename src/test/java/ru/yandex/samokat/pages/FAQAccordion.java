@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 
 import ru.yandex.samokat.pages.iAccordion;
 
+// РОМ раскрвающегося списка Вопрос-Ответ, селекторы выненсены в интерфес
 public class FAQAccordion extends DriveredPage implements iAccordion {
 
     public FAQAccordion(WebDriver driver, JavascriptExecutor jse) {
@@ -17,25 +18,29 @@ public class FAQAccordion extends DriveredPage implements iAccordion {
     WebElement question;
     WebElement answer;
 
-    public void askQuestion(By selector){
+    public void askQuestion(By selector) {
         question = driver.findElement(selector);
         jse.executeScript("arguments[0].scrollIntoView()", question);
         question.click();
     }
+
     public void getFollowingAnswer() {
         answer = question.findElement(iAccordion.selectorFollowingAnswer);
     }
-    public boolean isAnswerNotHidden(){
-        if (answer.getAttribute("hidden")==null ){ return true; }
+
+    public boolean isAnswerNotHidden() {
+        if (answer.getAttribute("hidden") == null) {
+            return true;
+        }
         return false;
     }
-    public String getQuestionText(){
+
+    public String getQuestionText() {
         return question.getText();
     }
-    public String getAnswerText(){
+
+    public String getAnswerText() {
         return answer.getText();
     }
-
-
 }
 

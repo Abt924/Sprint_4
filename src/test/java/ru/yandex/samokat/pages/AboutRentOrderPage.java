@@ -1,18 +1,28 @@
 package ru.yandex.samokat.pages;
 
 import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
-public class AboutRentOrderPage extends DriveredPage implements iAboutRent{
 
-    //Конструктор с параметром webdriver
-    public AboutRentOrderPage(WebDriver driver) { super(driver);}
-    public AboutRentOrderPage(WebDriver driver, JavascriptExecutor jse){ super(driver,jse); }
+// Страница параметров аренды, селекторы вынесены в интрефейс
+public class AboutRentOrderPage extends DriveredPage implements iAboutRent {
 
-    public  void setDate(int date){
+    //Конструктор с параметром WebDriver
+    public AboutRentOrderPage(WebDriver driver) {
+        super(driver);
+    }
+
+    //Конструктор с параметром WebDriver, JavascriptExecutor
+    public AboutRentOrderPage(WebDriver driver, JavascriptExecutor jse) {
+        super(driver, jse);
+    }
+
+    // выбор даты (числа)
+    public void setDate(int date) {
         driver.findElement(selectorWhenField).click();
         // Дата из календаря ".//div[contains(@class, 'react-datepicker__day') and text()={date}]"
         String xpath = String.format(".//div[contains(@class, 'react-datepicker__day') and text()='%s']", date);
@@ -20,7 +30,9 @@ public class AboutRentOrderPage extends DriveredPage implements iAboutRent{
         WebElement selectedDate = driver.findElement(selectorDate);
         selectedDate.click();
     }
-    public void setNextDay(){
+
+    // выбор дня - завтра от текущей даты
+    public void setNextDay() {
         // Следующий день By.xpath("following-sibling::div")
         final By selectorDateNext = By.xpath("following-sibling::div");
         // Неделя сегодня от день сегодня
@@ -35,43 +47,47 @@ public class AboutRentOrderPage extends DriveredPage implements iAboutRent{
         driver.findElement(selectorWhenField).click();
         WebElement nextDay = null;
         WebElement today = driver.findElement(selectorDateToday);
-        //WebElement today = driver.findElement(selectorDate17);
         List<WebElement> nextDays = today.findElements(selectorDateNext);
-        if (nextDays.isEmpty()){
+        // если нет посл дней, т.е. today последний день недели, то переходим в следующую неделю
+        if (nextDays.isEmpty()) {
             WebElement week = today.findElement(selectorWeekToday);
             List<WebElement> nextWeeks = week.findElements(selectorWeekNext);
-            if (nextWeeks.isEmpty()){
+            //если полседняя неделя ,то переход в след месяц
+            if (nextWeeks.isEmpty()) {
                 //System.out.println("Конец месяца, перелистни календарь");
             }
-            //System.out.println("Осталось недель" + nextWeeks.size());
             List<WebElement> weeksDays = nextWeeks.get(0).findElements(selectorWeeksDays);
-            //System.out.println("дней на неделе" + weeksDays.size());
             nextDay = weeksDays.get(0);
         } else {
             nextDay = nextDays.get(0);
         }
-        System.out.println("Выбрана дата " + nextDay.getText());
+        //System.out.println("Выбрана дата " + nextDay.getText());
         nextDay.click();
     }
 
-    public void setRentPeriod(int choice){
+    //установить на сколько дней аренда
+    public void setRentPeriod(int period) {
         driver.findElement(selectorPeriodField).click();
-        driver.findElements(selectorRentPeriod).get(choice).click();
+        driver.findElements(selectorRentPeriod).get(period).click();
     }
 
-    public void setBlackColor(boolean isBlack){
+    // установить/снять чекбокс цвет черный
+    public void setBlackColor(boolean isBlack) {
         if (isBlack) driver.findElement(selectorBlackColor).click();
     }
 
-    public void setGreyColor(boolean isGray){
+    // установить/снять чекбокс цвет серый
+    public void setGreyColor(boolean isGray) {
         if (isGray) driver.findElement(selectorGreyColor).click();
     }
 
-    public void setComment(String comment){
+    // заполнить поле Комментарий
+    public void setComment(String comment) {
         driver.findElement(selectorCommentField).sendKeys(comment);
     }
 
-    public void pushOrder(){
+    // Нажать кнопку Заказать
+    public void pushOrder() {
         WebElement button = driver.findElement(selectorOrderButton);
         scrollAndClick(button);
     }

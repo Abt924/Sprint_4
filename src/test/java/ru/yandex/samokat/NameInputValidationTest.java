@@ -1,7 +1,6 @@
 package ru.yandex.samokat;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
@@ -12,9 +11,11 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+
 import ru.yandex.samokat.pages.*;
 import ru.yandex.samokat.inputs.*;
 
+//Тест валидации ввода в поле Имя
 @RunWith(Parameterized.class)
 public class NameInputValidationTest {
 
@@ -30,7 +31,7 @@ public class NameInputValidationTest {
     }
 
     @Parameterized.Parameters
-    public static Object [][] getNameData(){
+    public static Object[][] getNameData() {
         return new Object[][]{
                 {"Федор", true},
                 {"федор", true},
@@ -50,29 +51,28 @@ public class NameInputValidationTest {
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         driver = new ChromeDriver();
-        jse = (JavascriptExecutor)driver;
+        jse = (JavascriptExecutor) driver;
     }
 
     @Test
-    public void nameInputValidationTest(){
+    public void nameInputValidationTest() {
         driver.get(url);
         HomePageSamokat objHomePage = new HomePageSamokat(driver, jse);
         objHomePage.acceptCookies();
         objHomePage.pushOrderOnPage();
-    
+
         NameInput objNameInput = new NameInput(driver, jse);
         objNameInput.sendKeys(name);
         objNameInput.pushTab();
 
         assertEquals(String.format("Валидны рус, пробел, от 2 до 15 символов. Введено: %s", name),
                 expected, objNameInput.isValidate());
-
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         driver.quit();
     }
 }

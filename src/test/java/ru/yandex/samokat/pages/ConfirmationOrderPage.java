@@ -7,26 +7,33 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class ConfirmationOrderPage extends DriveredPage{
-    // Да
+// Окно подтверждения Заказа
+public class ConfirmationOrderPage extends DriveredPage {
+    // кнопка Да
     private final By selectorYes = By.xpath(".//button[text()='Да']");
-    // Нет
+    // кнопка Нет
     private final By selectorNo = By.xpath(".//button[text()='Нет']");
     // запрос подтверждения
     private final By selectorConfirmationPage = By.xpath(".//div[contains(text(),'Хотите оформить')]");
 
-    //Конструктор с параметром webdriver
-    public ConfirmationOrderPage(WebDriver driver) { super(driver);}
+    //Конструктор с параметром WebDriver
+    public ConfirmationOrderPage(WebDriver driver) {
+        super(driver);
+    }
 
-    public ConfirmationOrderPage(WebDriver driver, JavascriptExecutor jse){ super(driver,jse); }
+    //Конструктор с параметром WebDriver, JavascriptExecutor
+    public ConfirmationOrderPage(WebDriver driver, JavascriptExecutor jse) {
+        super(driver, jse);
+    }
 
-
-    public void waitPage(){
+    // Ожидание по кнопке Yes
+    public void waitPage() {
         new WebDriverWait(driver, 3)
                 .until(ExpectedConditions.elementToBeClickable(selectorYes));
     }
 
-    public void pushYes(){
+    // Нажать кнопку Да
+    public void pushYes() {
         WebElement buttonYes = driver.findElement(selectorYes);
         scrollAndClick(buttonYes);
     }
