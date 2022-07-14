@@ -17,7 +17,8 @@ public interface iHomePage {
      final By selectorGoButton = By.xpath(
             ".//button[contains(@class, 'Header_Button') and text()='Go!']");
     //кнопка Куки
-     final By selectorAcceptCookies = By.xpath(".//button[@class='App_CookieButton__3cvqF' or contains(text(),'привыкли')]");
+     final By selectorAcceptCookies = By.xpath(
+             ".//button[contains(@class, 'App_CookieButton') or contains(text(),'привыкли')]");
     // Заказать верняя кнопка
      final By orderHeaderButton = By.xpath(".//div[contains(@class,'Header_Nav')]//button[text()='Заказать']");
     // Заказать нижняя кнопка

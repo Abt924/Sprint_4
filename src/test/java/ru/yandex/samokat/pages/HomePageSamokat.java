@@ -20,6 +20,7 @@ public class HomePageSamokat extends DriveredPage implements iHomePage{
         // Принять Куки
         public void acceptCookies(){
                 WebElement element = driver.findElement(selectorAcceptCookies);
+                System.out.println(element.getText());
                 scrollAndClick(element);
         }
 

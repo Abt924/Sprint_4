@@ -67,8 +67,9 @@ public class OrderSuccessFLowTest {
         jse = (JavascriptExecutor)driver;
     }
 
+    // Заказ через кнопку на странице
     @Test
-    public void successFlowTest(){
+    public void successFlowTestPushOrderOnPage(){
         driver.get(url);
         HomePageSamokat objHomePage = new HomePageSamokat(driver, jse);
         objHomePage.acceptCookies();
@@ -100,6 +101,39 @@ public class OrderSuccessFLowTest {
 
     }
 
+    // Заказ через кнопку в заголовке
+    @Test
+    public void successFlowTestPushOrderInHeader(){
+        driver.get(url);
+        HomePageSamokat objHomePage = new HomePageSamokat(driver, jse);
+        objHomePage.acceptCookies();
+        objHomePage.pushOrderInHeader();
+
+        ForWhomOrderPage objForWhom = new ForWhomOrderPage(driver, jse);
+        objForWhom.setName(name);
+        objForWhom.setSurname(surname);
+        objForWhom.setAddress(address);
+        objForWhom.setPhone(phone);
+        objForWhom.setMetro(metro);
+        objForWhom.pushNext();
+
+        AboutRentOrderPage objAboutRent = new AboutRentOrderPage(driver, jse);
+        //objAboutRent.setNextDay();
+        objAboutRent.setDate(date);
+        objAboutRent.setRentPeriod(period);
+        objAboutRent.setBlackColor(isBlack);
+        objAboutRent.setGreyColor(isGray);
+        objAboutRent.setComment(comments);
+        objAboutRent.pushOrder();
+
+        ConfirmationOrderPage objConfirmationPage = new ConfirmationOrderPage(driver, jse);
+        objConfirmationPage.waitPage();
+        objConfirmationPage.pushYes();
+
+        OrderApprovedPage objAprooved = new OrderApprovedPage(driver,jse);
+        assertTrue("НЕТ окна \"Заказ оформлен\" после подтверждения заказа.", objAprooved.isUp());
+
+    }
 
     @After
     public void tearDown(){
