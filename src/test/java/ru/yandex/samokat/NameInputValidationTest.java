@@ -16,7 +16,7 @@ import ru.yandex.samokat.pages.*;
 import ru.yandex.samokat.inputs.*;
 
 @RunWith(Parameterized.class)
-public class nameInputValidationTest {
+public class NameInputValidationTest {
 
     private WebDriver driver;
     private JavascriptExecutor jse;
@@ -24,7 +24,7 @@ public class nameInputValidationTest {
     private final String name;
     private final boolean expected;
 
-    public nameInputValidationTest(String name, boolean expected) {
+    public NameInputValidationTest(String name, boolean expected) {
         this.name = name;
         this.expected = expected;
     }
@@ -61,8 +61,8 @@ public class nameInputValidationTest {
         HomePageSamokat objHomePage = new HomePageSamokat(driver, jse);
         objHomePage.acceptCookies();
         objHomePage.pushOrderOnPage();
-
-        nameInput objNameInput = new nameInput(driver, jse);
+    
+        NameInput objNameInput = new NameInput(driver, jse);
         objNameInput.sendKeys(name);
         objNameInput.pushTab();
 

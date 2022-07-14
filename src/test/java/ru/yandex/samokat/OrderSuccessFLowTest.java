@@ -54,7 +54,7 @@ public class OrderSuccessFLowTest {
     public static Object [][] getOrderData(){
         return new Object[][]{
                 {"Сидор", "Васечкин", "Хорошовское шоссе 17", "Беговая", "+74952128506",
-        18, 6, true, false, "No comments"},
+                        18, 6, true, false, "No comments"},
                 {"Петр", "Баширов", "Льва Толстого д.6", "Парк культуры", "84952128506",
                         2, 1, true, true, "без комментариев"},
         };

@@ -6,28 +6,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
-public class AboutRentOrderPage extends DriveredPage {
-    // Когда привезти $x(".//input[contains(@placeholder, 'Когда')]")
-    private final By selectorWhenField = By.xpath(".//input[contains(@placeholder, 'Когда')]");
-    // День сегодня
-    final By selectorDateToday = By.xpath(".//div[contains(@class, 'react-datepicker__day--today')]");
-    // Срок аренды  $x(".//div[contains(@class, 'Dropdown') and contains(text(), 'Срок')]")
-    private final By selectorPeriodField = By.xpath(".//div[contains(@class, 'Dropdown') and contains(text(), 'Срок')]");
-    // Срок аренды варианты $x(".//div[contains(@class, 'Dropdown-option')]")
-    private final By selectorRentPeriod = By.xpath(".//div[contains(@class, 'Dropdown-option')]");
-    // чекбокс цвет черный $x(".//input[@id, 'black')]")
-    private final By selectorBlackColor = By.xpath(".//input[@id='black']");
-    // чекбокс цвет серый $x(".//input[@id, 'grey')]")
-    private final By selectorGreyColor = By.xpath(".//input[@id='grey']");
-    // Комментарий $x(".//input[contains(@placeholder, 'Комментарий')]")
-    private final By selectorCommentField = By.xpath(".//input[contains(@placeholder, 'Комментарий')]");
-    // Заказать $x(".//button[text()='Заказать']")
-    private final By selectorOrderButton = By.xpath(".//div[contains(@class, 'Order_Buttons')]//button[text()='Заказать']");
-
+public class AboutRentOrderPage extends DriveredPage implements iAboutRent{
 
     //Конструктор с параметром webdriver
     public AboutRentOrderPage(WebDriver driver) { super(driver);}
-
     public AboutRentOrderPage(WebDriver driver, JavascriptExecutor jse){ super(driver,jse); }
 
     public  void setDate(int date){

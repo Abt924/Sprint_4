@@ -6,35 +6,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ForWhomOrderPage {
-    // Кнопка Далее $x(".//button[text()='Далее']")
-    private final By selectorNextButton = By.xpath(".//button[contains(text(),'Далее')]");
-    // поле ввода Имя $x(".//input[contains(@placeholder, 'Имя')]")
-    private final By selectorNameField = By.xpath(".//input[contains(@placeholder, 'Имя')]");
-    // поле ввода Фамилия $x(".//input[contains(@placeholder, 'Фамилия')]")
-    private final By selectorSurnameField = By.xpath(".//input[contains(@placeholder, 'Фамилия')]");
-    // поле ввода Адрес $x(".//input[contains(@placeholder, 'Адрес')]")
-    private final By selectorAddressField = By.xpath(".//input[contains(@placeholder, 'Адрес')]");
-    // поле ввода Метро $x(".//input[contains(@placeholder, 'метро')]")
-    private final By selectorMetroField = By.xpath(".//input[contains(@placeholder, 'метро')]");
-    // список станций кнопка станции  $x(".//div[@class='Order_Text__2broi' and contains(text(), 'Сокольники')]")
-    private final String selectorStationButtonStr = ".//div[@class='Order_Text__2broi' and contains(text(), '%s')]";
-    //private  By selectorStationButton = By.xpath(".//div[@class='Order_Text__2broi' and contains(text(), 'Сокольники')]");
-    // поле ввода Телефон $x(".//input[contains(@placeholder, 'Телефон')]")
-    private final By selectorPhoneField = By.xpath(".//input[contains(@placeholder, 'Телефон')]");
-
-    private WebDriver driver;
-    private JavascriptExecutor jse;
+public class ForWhomOrderPage extends DriveredPage implements iForWhom{
 
     //Конструктор с параметром webdriver
     public ForWhomOrderPage(WebDriver driver, JavascriptExecutor jse){
-        this.driver = driver;
-        this.jse = jse;
-    }
-
-    private void scrollAndClick(WebElement element){
-        jse.executeScript("arguments[0].scrollIntoView()", element);
-        element.click();
+        super(driver, jse);
     }
 
     public void setName(String name){
@@ -64,5 +40,4 @@ public class ForWhomOrderPage {
         WebElement button = driver.findElement(selectorNextButton);
         scrollAndClick(button);
     }
-
 }
