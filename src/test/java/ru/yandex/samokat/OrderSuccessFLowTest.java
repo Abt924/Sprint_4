@@ -1,16 +1,10 @@
 package ru.yandex.samokat;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
 import static org.junit.Assert.assertTrue;
-
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import ru.yandex.samokat.pages.HomePageSamokat;
 import ru.yandex.samokat.pages.ForWhomOrderPage;
@@ -19,11 +13,8 @@ import ru.yandex.samokat.pages.ConfirmationOrderPage;
 import ru.yandex.samokat.pages.OrderApprovedPage;
 
 @RunWith(Parameterized.class)
-public class OrderSuccessFLowTest {
+public class OrderSuccessFLowTest extends BaseUITest {
 
-    private WebDriver driver;
-    private JavascriptExecutor jse;
-    private final String url = "https://qa-scooter.praktikum-services.ru/";
 
     private final String name;
     private final String surname;
@@ -61,17 +52,11 @@ public class OrderSuccessFLowTest {
     }
 
 
-    @Before
-    public void setUp() {
-        driver = new ChromeDriver();
-        jse = (JavascriptExecutor) driver;
-    }
-
     // Позитивный флоу заказа самоката должен завершится окном Заказ оформлен с номером заказа
     // Заказ через кнопку на странице
     @Test
     public void successFlowTestPushOrderOnPage() {
-        driver.get(url);
+        driver.get(HomePageSamokat.URL);
         HomePageSamokat objHomePage = new HomePageSamokat(driver, jse);
         objHomePage.acceptCookies();
         objHomePage.pushOrderOnPage();
@@ -106,7 +91,7 @@ public class OrderSuccessFLowTest {
     // Заказ через кнопку в заголовке
     @Test
     public void successFlowTestPushOrderInHeader() {
-        driver.get(url);
+        driver.get(HomePageSamokat.URL);
         HomePageSamokat objHomePage = new HomePageSamokat(driver, jse);
         objHomePage.acceptCookies();
         objHomePage.pushOrderInHeader();
@@ -132,14 +117,10 @@ public class OrderSuccessFLowTest {
         objConfirmationPage.waitPage();
         objConfirmationPage.pushYes();
 
-        OrderApprovedPage objAprooved = new OrderApprovedPage(driver, jse);
-        assertTrue("НЕТ окна \"Заказ оформлен\" после подтверждения заказа.", objAprooved.isUp());
+        OrderApprovedPage objApproved = new OrderApprovedPage(driver, jse);
+        assertTrue("НЕТ окна \"Заказ оформлен\" после подтверждения заказа.", objApproved.isUp());
 
     }
 
-    @After
-    public void tearDown() {
-        driver.quit();
-    }
 
 }

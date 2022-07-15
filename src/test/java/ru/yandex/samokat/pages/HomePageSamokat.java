@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 // POM домашней страницы, селекторы вынесены в интерфейс
 public class HomePageSamokat extends DriveredPage implements iHomePage {
 
+    public static final String URL = "https://qa-scooter.praktikum-services.ru/";
+
     //Конструктор с параметром WebDriver
     public HomePageSamokat(WebDriver driver) {
         super(driver);
@@ -87,8 +89,7 @@ public class HomePageSamokat extends DriveredPage implements iHomePage {
     // ввести трек номер заказа
     public void setOrderNumber(String trackNumber) {
         WebElement trackInput = driver.findElement(selectorTrackNumberInput);
-        new WebDriverWait(driver, 3).until(
-                (ExpectedConditions.elementToBeClickable(selectorTrackNumberInput)));
+        new WebDriverWait(driver, 3).until((ExpectedConditions.elementToBeClickable(selectorTrackNumberInput)));
         trackInput.sendKeys(trackNumber);
     }
 

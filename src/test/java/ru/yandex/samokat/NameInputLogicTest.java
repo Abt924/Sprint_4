@@ -1,28 +1,21 @@
 package ru.yandex.samokat;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import ru.yandex.samokat.pages.HomePageSamokat;
 import ru.yandex.samokat.inputs.NameInput;
 
 // тесты логики поля ввода Имя
-public class NameInputLogicTest {
-    private WebDriver driver;
-    private JavascriptExecutor jse;
-    private final String url = "https://qa-scooter.praktikum-services.ru/";
+public class NameInputLogicTest extends BaseUITest {
 
+    @Override
     @Before
     public void setUp() {
-        driver = new ChromeDriver();
-        jse = (JavascriptExecutor) driver;
-        driver.get(url);
+        super.setUp();
+        driver.get(HomePageSamokat.URL);
         HomePageSamokat objHomePage = new HomePageSamokat(driver, jse);
         objHomePage.acceptCookies();
         objHomePage.pushOrderInHeader();
@@ -87,8 +80,4 @@ public class NameInputLogicTest {
         assertEquals(String.format("Должно быть введено имя %s", name), name, objNameInput.getValue());
     }
 
-    @After
-    public void tearDown() {
-        driver.quit();
-    }
 }

@@ -7,35 +7,22 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import ru.yandex.samokat.pages.HomePageSamokat;
 import ru.yandex.samokat.pages.iHomePage;
 
-
 import java.util.List;
 
 // Тест логики работы выпадающего списка Вопрос-Ответ
-public class FAQAccordionTest {
-    private WebDriver driver;
-    private JavascriptExecutor jse;
-    private final String url = "https://qa-scooter.praktikum-services.ru/";
-
-    @Before
-    public void setUp() {
-        driver = new ChromeDriver();
-        jse = (JavascriptExecutor) driver;
-    }
+public class FAQAccordionTest extends BaseUITest {
 
     // Есть хоть одна кнопка аккордеона
     @Test
     public void FAQButtonMoreThen0Test() {
-        driver.get(url);
+        driver.get(HomePageSamokat.URL);
         new WebDriverWait(driver, 3).until(
                 ExpectedConditions.elementToBeClickable(iHomePage.selectorAcceptCookies));
         HomePageSamokat objHomePage = new HomePageSamokat(driver);
@@ -46,7 +33,7 @@ public class FAQAccordionTest {
     // Для ненажатых кнопок нет выпадающих ответов
     @Test
     public void noClickNoDroppedResponseTest() {
-        driver.get(url);
+        driver.get(HomePageSamokat.URL);
         HomePageSamokat objHomePage = new HomePageSamokat(driver);
         int buttonCount = objHomePage.getFAQuestionsCount();
         List<WebElement> buttons = objHomePage.getFAQuestionButtons();
@@ -61,7 +48,7 @@ public class FAQAccordionTest {
     // Для нажатой кнопки только один выпадающий ответ
     @Test
     public void oneClickOneDroppedResponseTest() {
-        driver.get(url);
+        driver.get(HomePageSamokat.URL);
         HomePageSamokat objHomePage = new HomePageSamokat(driver);
         int buttonCount = objHomePage.getFAQuestionsCount();
         List<WebElement> buttons = objHomePage.getFAQuestionButtons();
@@ -78,7 +65,7 @@ public class FAQAccordionTest {
     @Test
     public void dropResponseTest() {
 
-        driver.get(url);
+        driver.get(HomePageSamokat.URL);
         HomePageSamokat objHomePage = new HomePageSamokat(driver);
         int buttonCount = objHomePage.getFAQuestionsCount();
         List<WebElement> buttons = objHomePage.getFAQuestionButtons();
@@ -92,9 +79,5 @@ public class FAQAccordionTest {
         }
     }
 
-    @After
-    public void tearDown() {
-        driver.quit();
-    }
 
 }
