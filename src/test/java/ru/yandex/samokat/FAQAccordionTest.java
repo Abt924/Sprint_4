@@ -1,7 +1,5 @@
 package ru.yandex.samokat;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -9,10 +7,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import ru.yandex.samokat.pages.HomePageSamokat;
-import ru.yandex.samokat.pages.iHomePage;
 
 import java.util.List;
 
@@ -22,10 +18,9 @@ public class FAQAccordionTest extends BaseUITest {
     // Есть хоть одна кнопка аккордеона
     @Test
     public void FAQButtonMoreThen0Test() {
-        driver.get(HomePageSamokat.URL);
-        new WebDriverWait(driver, 3).until(
-                ExpectedConditions.elementToBeClickable(iHomePage.selectorAcceptCookies));
         HomePageSamokat objHomePage = new HomePageSamokat(driver);
+        objHomePage.open();
+        objHomePage.waitCookies();
         int buttonCount = objHomePage.getFAQuestionsCount();
         assertTrue("Buttons in FAQ accordion should be more than 0", buttonCount > 0);
     }
@@ -33,8 +28,8 @@ public class FAQAccordionTest extends BaseUITest {
     // Для ненажатых кнопок нет выпадающих ответов
     @Test
     public void noClickNoDroppedResponseTest() {
-        driver.get(HomePageSamokat.URL);
         HomePageSamokat objHomePage = new HomePageSamokat(driver);
+        objHomePage.open();
         int buttonCount = objHomePage.getFAQuestionsCount();
         List<WebElement> buttons = objHomePage.getFAQuestionButtons();
         for (WebElement button : buttons) {
@@ -48,8 +43,8 @@ public class FAQAccordionTest extends BaseUITest {
     // Для нажатой кнопки только один выпадающий ответ
     @Test
     public void oneClickOneDroppedResponseTest() {
-        driver.get(HomePageSamokat.URL);
         HomePageSamokat objHomePage = new HomePageSamokat(driver);
+        objHomePage.open();
         int buttonCount = objHomePage.getFAQuestionsCount();
         List<WebElement> buttons = objHomePage.getFAQuestionButtons();
         for (WebElement button : buttons) {
@@ -64,9 +59,8 @@ public class FAQAccordionTest extends BaseUITest {
     // aria-controls вопроса соответствует id ответа
     @Test
     public void dropResponseTest() {
-
-        driver.get(HomePageSamokat.URL);
         HomePageSamokat objHomePage = new HomePageSamokat(driver);
+        objHomePage.open();
         int buttonCount = objHomePage.getFAQuestionsCount();
         List<WebElement> buttons = objHomePage.getFAQuestionButtons();
         for (WebElement button : buttons) {

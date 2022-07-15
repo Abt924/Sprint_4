@@ -56,8 +56,8 @@ public class OrderSuccessFLowTest extends BaseUITest {
     // Заказ через кнопку на странице
     @Test
     public void successFlowTestPushOrderOnPage() {
-        driver.get(HomePageSamokat.URL);
-        HomePageSamokat objHomePage = new HomePageSamokat(driver, jse);
+        HomePageSamokat objHomePage = new HomePageSamokat(driver,jse);
+        objHomePage.open();
         objHomePage.acceptCookies();
         objHomePage.pushOrderOnPage();
 
@@ -91,8 +91,8 @@ public class OrderSuccessFLowTest extends BaseUITest {
     // Заказ через кнопку в заголовке
     @Test
     public void successFlowTestPushOrderInHeader() {
-        driver.get(HomePageSamokat.URL);
-        HomePageSamokat objHomePage = new HomePageSamokat(driver, jse);
+        HomePageSamokat objHomePage = new HomePageSamokat(driver,jse);
+        objHomePage.open();
         objHomePage.acceptCookies();
         objHomePage.pushOrderInHeader();
 

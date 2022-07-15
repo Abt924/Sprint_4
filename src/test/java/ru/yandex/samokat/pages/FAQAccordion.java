@@ -6,10 +6,27 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import ru.yandex.samokat.pages.iAccordion;
-
 // РОМ раскрвающегося списка Вопрос-Ответ, селекторы выненсены в интерфес
-public class FAQAccordion extends DriveredPage implements iAccordion {
+public class FAQAccordion extends DriveredPage {
+    public static final By selectorPriceQuestion = By.xpath(
+            ".//div[@class='accordion__button' and contains(text(), 'стоит') and contains(text(), 'оплатить')] ");
+    public static final By selectorFollowingAnswer = By.xpath(
+            "parent::div/following-sibling::div/p");
+    public static final By selectorWantsMoreQuestion = By.xpath(
+            ".//div[@class='accordion__button' and contains(text(), 'можно') and contains(text(), 'несколько')] ");
+    public static final By selectorRentTimeQuestion = By.xpath(
+            ".//div[@class='accordion__button' and contains(text(), 'время') and contains(text(), 'аренды')] ");
+    public static final By selectorRentTodayQuestion = By.xpath(
+            ".//div[@class='accordion__button' and contains(text(), 'прямо') and contains(text(), 'сегодня')] ");
+    public static final By selectorExtendOrReturnQuestion = By.xpath(
+            ".//div[@class='accordion__button' and contains(text(), 'продлить') and contains(text(), 'вернуть')] ");
+    public static final By selectorChargerQuestion = By.xpath(
+            ".//div[@class='accordion__button' and contains(text(), 'привозите') and contains(text(), 'зарядку')] ");
+    public static final By selectorCancellationQuestion = By.xpath(
+            ".//div[@class='accordion__button' and contains(text(), 'отменить') and contains(text(), 'заказ')] ");
+    public static final By selectorBeyondMKADQuestion = By.xpath(
+            ".//div[@class='accordion__button' and contains(text(), 'МКАД') and contains(text(), 'привез')] ");
+
 
     public FAQAccordion(WebDriver driver, JavascriptExecutor jse) {
         super(driver, jse);
@@ -25,7 +42,7 @@ public class FAQAccordion extends DriveredPage implements iAccordion {
     }
 
     public void getFollowingAnswer() {
-        answer = question.findElement(iAccordion.selectorFollowingAnswer);
+        answer = question.findElement(selectorFollowingAnswer);
     }
 
     public boolean isAnswerNotHidden() {

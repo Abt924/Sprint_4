@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
-import  ru.yandex.samokat.pages.iForWhom;
+import  ru.yandex.samokat.pages.ForWhomOrderPage;
 
 public class NameInput extends StringInput {
     // селектор поля ввода Имя в интерфйсе iForWhom.selectorNameField
@@ -14,6 +14,6 @@ public class NameInput extends StringInput {
     static final By selectorErrorMessage = By.xpath("following-sibling::div[contains(@class, 'Input_ErrorMessage')]");
 
     public NameInput(WebDriver driver, JavascriptExecutor jse) {
-        super(driver, jse, iForWhom.selectorNameField, selectorErrorMessage);
+        super(driver, jse, ForWhomOrderPage.selectorNameField, selectorErrorMessage);
     }
 }

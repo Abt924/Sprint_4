@@ -7,9 +7,26 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.samokat.inputs.Order;
 
-// Страница параметров аренды, селекторы вынесены в интрефейс
-public class AboutRentOrderPage extends DriveredPage implements iAboutRent {
+// Страница параметров аренды
+public class AboutRentOrderPage extends DriveredPage {
+    private final By selectorWhenField = By.xpath(".//input[contains(@placeholder, 'Когда')]");
+    // День сегодня
+    private final By selectorDateToday = By.xpath(".//div[contains(@class, 'react-datepicker__day--today')]");
+    // Срок аренды  $x(".//div[contains(@class, 'Dropdown') and contains(text(), 'Срок')]")
+    private final By selectorPeriodField = By.xpath(".//div[contains(@class, 'Dropdown') and contains(text(), 'Срок')]");
+    // Срок аренды варианты $x(".//div[contains(@class, 'Dropdown-option')]")
+    private final By selectorRentPeriod = By.xpath(".//div[contains(@class, 'Dropdown-option')]");
+    // чекбокс цвет черный $x(".//input[@id, 'black')]")
+    private final By selectorBlackColor = By.xpath(".//input[@id='black']");
+    // чекбокс цвет серый $x(".//input[@id, 'grey')]")
+    private final By selectorGreyColor = By.xpath(".//input[@id='grey']");
+    // Комментарий $x(".//input[contains(@placeholder, 'Комментарий')]")
+    private final By selectorCommentField = By.xpath(".//input[contains(@placeholder, 'Комментарий')]");
+    // Заказать $x(".//button[text()='Заказать']")
+    private final By selectorOrderButton = By.xpath(".//div[contains(@class, 'Order_Buttons')]//button[text()='Заказать']");
+
 
     //Конструктор с параметром WebDriver
     public AboutRentOrderPage(WebDriver driver) {
@@ -86,9 +103,17 @@ public class AboutRentOrderPage extends DriveredPage implements iAboutRent {
         driver.findElement(selectorCommentField).sendKeys(comment);
     }
 
+    public void fillForm(Order order){
+        setDate(order.getDate());
+        setRentPeriod(order.getTerm());
+        setBlackColor(order.isBlack());
+        setGreyColor(order.isGray());
+        setComment(order.getComment());
+    }
     // Нажать кнопку Заказать
     public void pushOrder() {
         WebElement button = driver.findElement(selectorOrderButton);
         scrollAndClick(button);
     }
+
 }

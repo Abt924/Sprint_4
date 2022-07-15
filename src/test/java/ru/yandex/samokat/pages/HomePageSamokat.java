@@ -8,11 +8,43 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.yandex.samokat.inputs.Order;
 
-// POM домашней страницы, селекторы вынесены в интерфейс
-public class HomePageSamokat extends DriveredPage implements iHomePage {
+// POM домашней страницы
+public class HomePageSamokat extends DriveredPage {
 
     public static final String URL = "https://qa-scooter.praktikum-services.ru/";
+
+    // Logo скутер
+    private final By selectorLogoScooter = By.xpath(".//a[contains(@class,'Header_LogoScooter')]");
+    // Logo Yandex
+    private final By selectorLogoYandex = By.xpath(".//a[contains(@class,'Header_LogoYandex')]");
+    // кнопка статус заказа
+    private final By selectorOrderStatusButton = By.xpath(".//button[contains(@class, 'Header') and text()='Статус заказа']");
+    // Поле ввода номер заказа в хэдере
+    private final By selectorTrackNumberInput = By.xpath(".//input[contains(@class, 'Header_Input') and contains(@placeholder,'номер заказа')]");
+    // Кнопка Go
+    private final By selectorGoButton = By.xpath(".//button[contains(@class, 'Header_Button') and text()='Go!']");
+    //кнопка Куки
+    private final By selectorAcceptCookies = By.xpath(".//button[contains(@class, 'App_CookieButton') or contains(text(),'привыкли')]");
+    // Заказать верняя кнопка
+    private final By orderHeaderButton = By.xpath(".//div[contains(@class,'Header_Nav')]//button[text()='Заказать']");
+
+    // Заказать нижняя кнопка
+    private final By orderFinishButton = By.xpath(".//div[contains(@class, 'Home_FinishButton')]//button[text()='Заказать']");
+    // шаблон и фичи для выбора верхней/нижей кнопки
+    public static final String templateButtonSelector = ".//div[contains(@class, '%s')]//button[text()='Заказать']";
+    public static final String upperButtonClass = "Header_Nav";
+    public static final String lowerButtonClass = "Home_FinishButton";
+
+    // FAQ Аккордеон
+    private final By FAQItems = By.className("accordion__item");
+    // Вопросы  элемента аккордеона
+    private final By FAQuestions = By.className("accordion__button");
+    // Ответы элементы аккордеона
+    private final By FAQResponses = By.cssSelector("div[data-accordion-component=AccordionItemPanel]");
+    // Развернутые ответы FAQ аккордеона
+    private final By FAQResponsesOpened = By.xpath(".//div[@class='accordion__panel' and not(@hidden)]");
 
     //Конструктор с параметром WebDriver
     public HomePageSamokat(WebDriver driver) {
@@ -24,10 +56,20 @@ public class HomePageSamokat extends DriveredPage implements iHomePage {
         super(driver, jse);
     }
 
+    // Открыть главную страницу
+    public void open() {
+        driver.get(URL);
+    }
+
+    //  дождаться куки
+    public void waitCookies() {
+        new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(selectorAcceptCookies));
+    }
+
     // Принять Куки
     public void acceptCookies() {
         WebElement element = driver.findElement(selectorAcceptCookies);
-        System.out.println(element.getText());
+        // System.out.println(element.getText());
         scrollAndClick(element);
     }
 
@@ -70,6 +112,16 @@ public class HomePageSamokat extends DriveredPage implements iHomePage {
         WebElement button = driver.findElement(orderFinishButton);
         scrollAndClick(button);
     }
+
+    //Нажать кнопку Заказать
+    //по выбору из тестовых данных в Order
+    // upperButtonClass or middleButtonClass
+    public void pushOrderUpperOrLowerButton(Order order) {
+        String selectorButton = String.format(templateButtonSelector, order.getOrderButtonClassFeature());
+        WebElement button = driver.findElement(By.xpath(selectorButton));
+        scrollAndClick(button);
+    }
+
 
     // перход по Лого Самокат
     public void followLogoScooter() {

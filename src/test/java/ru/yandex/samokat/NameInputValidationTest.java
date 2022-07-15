@@ -43,8 +43,8 @@ public class NameInputValidationTest extends BaseUITest{
 
     @Test
     public void nameInputValidationTest() {
-        driver.get(HomePageSamokat.URL);
-        HomePageSamokat objHomePage = new HomePageSamokat(driver, jse);
+        HomePageSamokat objHomePage = new HomePageSamokat(driver,jse);
+        objHomePage.open();
         objHomePage.acceptCookies();
         objHomePage.pushOrderOnPage();
 

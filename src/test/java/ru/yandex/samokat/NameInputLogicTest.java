@@ -15,8 +15,8 @@ public class NameInputLogicTest extends BaseUITest {
     @Before
     public void setUp() {
         super.setUp();
-        driver.get(HomePageSamokat.URL);
-        HomePageSamokat objHomePage = new HomePageSamokat(driver, jse);
+        HomePageSamokat objHomePage = new HomePageSamokat(driver,jse);
+        objHomePage.open();
         objHomePage.acceptCookies();
         objHomePage.pushOrderInHeader();
     }
