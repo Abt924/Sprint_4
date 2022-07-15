@@ -18,7 +18,7 @@ public class OrderSuccessParameterizedFLowTest extends BaseUITest {
         this.order = order;
     }
 
-    @Parameterized.Parameters
+    @Parameterized.Parameters(name = "Тест данные:{0}{1}")
     public static Object[][] getOrderData() {
         return new Object[][]{
                 // клик по кнопке в хедере, валидные данные ввода
